@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}orbita — AI-агент для подбора и бронирования отелей{% endblock %}
+
+{% block styles %}
+<link href="/static/css/index.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+  <section class="hero">
+    <!-- <p class="eyebrow"><i></i>AI-агент для подбора отелей</p> -->
+
+    <h1 class="headline">Опишите <em>вечер</em>,<br>а не отель.</h1>
+
+    <p class="lede">
+      Orbita читает между строк и подбирает идеальные отели для вашей конкретной поездки.
+    </p>
+
+    <form class="composer" id="composer" method="post" action="/redirect-to-chat">
+      <svg class="spark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 2c.65 4.9 3.1 7.35 8 8-4.9.65-7.35 3.1-8 8-.65-4.9-3.1-7.35-8-8 4.9-.65 7.35-3.1 8-8z"/>
+      </svg>
+
+      <textarea id="prompt" rows="1" placeholder="" aria-label="Опишите, что вы ищете"></textarea>
+
+      <a href="/chat" class="send" type="submit" aria-label="Подобрать отели">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h13M13 6l6 6-6 6"/>
+        </svg>
+      </a>
+    </form>
+
+    <div class="chips" id="chips">
+      <button class="chip" type="button">тихий отель у моря до 150 €</button>
+      <button class="chip" type="button">вид на горы и завтрак</button>
+      <button class="chip" type="button">маленький, уютный отель, где помнят по имени</button>
+    </div>
+  </section>
+
+  <section class="results" id="results" hidden>
+    <div class="think" id="think"></div>
+
+    <div class="results-head">
+      <span class="results-label" id="resultsLabel">3 варианта</span>
+      <button class="more" id="moreBtn" type="button">Ещё три <span aria-hidden="true">→</span></button>
+    </div>
+
+    <div class="cards" id="cards"></div>
+  </section>
+
+  <section class="how" id="how">
+    <div class="how-head">
+      <h2>Без фильтров и двадцати вкладок</h2>
+      <p>Вы говорите — агент делает. Три шага и ни одного выпадающего списка.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <span class="num">01</span>
+        <h3>Расскажите словами</h3>
+        <p>Просто опишите поездку или желаемый отель любыми словами — это не поисковый запрос.</p>
+      </div>
+      <div class="step">
+        <span class="num">02</span>
+        <h3>Агент читает между строк</h3>
+        <p>Выделяет из вашего описания ряд параметров для дальнейшего сравнения вариантов.</p>
+      </div>
+      <div class="step">
+        <span class="num">03</span>
+        <h3>Три варианта, а не триста</h3>
+        <p>Каждый — с объяснением, почему он подходит именно вам. Бронирование в один клик.</p>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block scripts %}
+<!-- <script src="/static/js/index.js"></script> -->
+{% endblock %}

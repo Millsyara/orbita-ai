@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}Регистрация — orbita{% endblock %}
+
+{% block styles %}
+<link href="/static/css/auth.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<section class="auth">
+  <div class="auth-card">
+    <div class="auth-head">
+      <h1>Создать аккаунт</h1>
+      <p>Опишите вечер — мы найдём место. Начнём с пары деталей.</p>
+    </div>
+
+    {% if error %}
+      <div class="form-error" role="alert">
+        <ul>
+          {% for msg in error.split('; ') %}
+            <li>{{ msg }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    <form class="auth-form" method="post" action="/register">
+      <label class="field">
+        <span>Имя пользователя</span>
+        <input
+          type="text"
+          name="username"
+          value="{{ form_data.username if form_data else '' }}"
+          placeholder="от 3 до 25 символов"
+          autocomplete="username"
+          autocapitalize="off"
+          spellcheck="false"
+          minlength="3"
+          maxlength="25"
+          required
+        >
+      </label>
+
+      <label class="field">
+        <span>Email</span>
+        <input
+          type="email"
+          name="email"
+          value="{{ form_data.email if form_data else '' }}"
+          placeholder="you@example.com"
+          autocomplete="email"
+          autocapitalize="off"
+          spellcheck="false"
+          required
+        >
+      </label>
+
+      <label class="field">
+        <span>Пароль</span>
+        <div class="password-wrap">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="минимум 6 символов"
+            autocomplete="new-password"
+            minlength="6"
+            required
+          >
+          <button
+            type="button"
+            class="toggle-password"
+            data-toggle-password
+            aria-label="Показать пароль"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </button>
+        </div>
+      </label>
+
+      <label class="field">
+        <span>Повторите пароль</span>
+        <div class="password-wrap">
+          <input
+            type="password"
+            id="confirm_password"
+            name="confirm_password"
+            placeholder="ещё раз"
+            autocomplete="new-password"
+            minlength="6"
+            required
+          >
+          <button
+            type="button"
+            class="toggle-password"
+            data-toggle-password
+            aria-label="Показать пароль"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </button>
+        </div>
+      </label>
+
+      <label class="field-check">
+        <input type="checkbox" name="agree_terms" value="true" required>
+        <span>
+          Я согласен с <a href="/tos" target="_blank" rel="noopener">условиями использования</a>
+          и обработкой персональных данных
+        </span>
+      </label>
+
+      <button type="submit" class="btn-primary">Создать аккаунт</button>
+    </form>
+
+    <p class="auth-alt">
+      Уже есть аккаунт? <a href="/login">Войти</a>
+    </p>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/auth.js"></script>
+{% endblock %}

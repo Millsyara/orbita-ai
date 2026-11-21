@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Вход — orbita{% endblock %}
+
+{% block styles %}
+<link href="/static/css/auth.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<section class="auth">
+  <div class="auth-card">
+    <div class="auth-head">
+      <h1>С возвращением</h1>
+      <p>Войдите, чтобы продолжить подбор отелей.</p>
+    </div>
+
+    {% if error == 'email_verify' %}
+      <div class="form-error warning" role="alert">
+        <p>
+          Ваш email ещё не подтверждён. Проверьте почту и перейдите по ссылке из письма,
+          чтобы завершить регистрацию (не забудьте заглянуть в «Спам»).
+        </p>
+      </div>
+    {% elif error %}
+      <div class="form-error" role="alert">
+        <ul>
+          {% for msg in error.split('; ') %}
+            <li>{{ msg }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    <form class="auth-form" method="post" action="/login">
+      <label class="field">
+        <span>Имя пользователя или email</span>
+        <input
+          type="text"
+          name="username_or_email"
+          value="{{ form_data.username_or_email if form_data else '' }}"
+          placeholder="you@example.com"
+          autocomplete="username"
+          autocapitalize="off"
+          spellcheck="false"
+          required
+        >
+      </label>
+
+      <label class="field">
+        <span>Пароль</span>
+        <div class="password-wrap">
+          <input
+            type="password"
+            name="password"
+            placeholder="••••••••"
+            autocomplete="current-password"
+            required
+          >
+          <button
+            type="button"
+            class="toggle-password"
+            data-toggle-password
+            aria-label="Показать пароль"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </button>
+        </div>
+      </label>
+
+      <button type="submit" class="btn-primary">Войти</button>
+    </form>
+
+    <p class="auth-alt">
+      Нет аккаунта? <a href="/register">Зарегистрироваться</a>
+    </p>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/auth.js"></script>
+{% endblock %}

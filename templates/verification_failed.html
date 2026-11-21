@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Ошибка подтверждения ❌</h1>
+    {% if error %}
+        <div class="alert-auth mb-4">
+            <i class="bi bi-exclamation-triangle"></i>
+            {{ error }}
+        </div>
+    {% endif %}
+    
+    <p>Вы можете:</p>
+    <ul>
+        <li><a href="{{ url_for('resend_verification') }}?email={{ email }}" class="btn-link">
+            Отправить письмо повторно
+        </a></li>
+        <li><a href="{{ url_for('register_page') }}" class="btn-link">
+                        Зарегистрироваться заново
+                    </a></li>
+        <li><a href="{{ url_for('home_page') }}">Вернуться на главную</a></li>
+    </ul>
+</div>
+{% endblock %}

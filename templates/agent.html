@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Чат с orbita — подбор и бронирование{% endblock %}
+
+{% block styles %}
+<link href="/static/css/agent.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<section class="agent-shell">
+  <div class="agent-grid">
+
+    <!-- ================= CHAT ================= -->
+    <div class="chat-col">
+      <header class="chat-head">
+        <h1>Опишите <em>поездку</em> —<br>остальное сделает orbita.</h1>
+      </header>
+
+      <div class="thread" id="thread" role="log" aria-live="polite" aria-relevant="additions"></div>
+
+      <div class="chat-foot">
+        <form class="composer" id="composer" autocomplete="off">
+          <svg class="spark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 2c.65 4.9 3.1 7.35 8 8-4.9.65-7.35 3.1-8 8-.65-4.9-3.1-7.35-8-8 4.9-.65 7.35-3.1 8-8z"/>
+          </svg>
+          <textarea id="prompt" rows="1" placeholder="Куда, когда и с кем едете?" aria-label="Сообщение агенту"></textarea>
+          <button class="send" type="submit" aria-label="Отправить">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h13M13 6l6 6-6 6"/>
+            </svg>
+          </button>
+        </form>
+
+        <div class="quick-replies" id="quickReplies">
+          <button class="chip" type="button"
+                  data-q="Хочу в Сочи с 1 по 7 июня, до 6000 ₽ за ночь, один номер">Сочи, лето</button>
+          <button class="chip" type="button"
+                  data-q="Питер на выходные, 2 взрослых, до 9000 ₽ за ночь">Питер на выходные</button>
+          <button class="chip" type="button"
+                  data-q="Москва, следующая неделя, 2 взрослых и ребёнок 8 лет">Москва с ребёнком</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= SIDE ================= -->
+    <aside class="side-col">
+
+      <div class="panel panel-prefs" id="panelPrefs">
+        <div class="panel-head">
+          <h2>Что уже известно</h2>
+          <span class="phase-badge" id="phaseBadge" data-phase="collect">сбор</span>
+        </div>
+        <dl class="prefs" id="prefs"></dl>
+      </div>
+
+      <div class="panel panel-shortlist" id="panelShortlist" hidden>
+        <div class="panel-head">
+          <h2>Варианты</h2>
+          <button class="more" id="findOthersBtn" type="button">Ещё <span aria-hidden="true">→</span></button>
+        </div>
+        <div class="shortlist" id="shortlist"></div>
+      </div>
+
+      <div class="panel panel-pending" id="panelPending" hidden>
+        <div class="panel-head"><h2>Подтверждение брони</h2></div>
+        <dl class="pending" id="pending"></dl>
+      </div>
+
+      <div class="panel panel-confirmed" id="panelConfirmed" hidden>
+        <div class="panel-head"><h2>Бронь оформлена</h2></div>
+        <dl class="confirmed" id="confirmed"></dl>
+      </div>
+
+      <button class="reset-btn" id="resetBtn" type="button">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
+             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/>
+        </svg>
+        Начать заново
+      </button>
+    </aside>
+
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/agent.js"></script>
+{% endblock %}

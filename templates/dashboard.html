@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Личный кабинет — orbita{% endblock %}
+
+{% block styles %}
+<link href="/static/css/dashboard.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<section class="dash">
+
+  <div class="dash-head">
+    <div class="dash-head-text">
+      <p class="dash-eyebrow"><i></i>Личный кабинет</p>
+      <h1 class="dash-title">Привет, <em>{{ username }}</em></h1>
+    </div>
+
+    <form method="post" action="/logout" class="logout-form">
+      <button type="submit" class="btn-logout" aria-label="Выйти из аккаунта">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+          <path d="M10 17l5-5-5-5"/>
+          <path d="M15 12H3"/>
+        </svg>
+        <span>Выйти</span>
+      </button>
+    </form>
+  </div>
+
+  <div class="dash-grid">
+
+    <article class="dash-card">
+      <h2 class="card-title">Профиль</h2>
+      <dl class="info-list">
+        <div class="info-row">
+          <dt>Имя пользователя</dt>
+          <dd>{{ username }}</dd>
+        </div>
+        <div class="info-row">
+          <dt>Email</dt>
+          <dd>{{ email }}</dd>
+        </div>
+        <div class="info-row">
+          <dt>Роль</dt>
+          <dd>
+            {% if role is defined and role == 'admin' %}
+              <span class="badge badge-admin">Администратор</span>
+            {% elif role is defined and role %}
+              <span class="badge">Пользователь</span>
+            {% else %}
+              <span class="muted">—</span>
+            {% endif %}
+          </dd>
+        </div>
+        <div class="info-row">
+          <dt>С нами с</dt>
+          <dd>{{ joined_date }}</dd>
+        </div>
+      </dl>
+    </article>
+
+    {% if chat_tokens is defined or image_tokens is defined %}
+      <article class="dash-card">
+        <h2 class="card-title">Баланс токенов</h2>
+        <div class="tokens">
+          <div class="token-item">
+            <span class="token-label">Токены чата</span>
+            <span class="token-value">
+              {{ chat_tokens if chat_tokens is defined and chat_tokens is not none else '—' }}
+            </span>
+          </div>
+          <div class="token-item">
+            <span class="token-label">Токены изображений</span>
+            <span class="token-value">
+              {{ image_tokens if image_tokens is defined and image_tokens is not none else '—' }}
+            </span>
+          </div>
+        </div>
+      </article>
+    {% endif %}
+
+  </div>
+
+</section>
+{% endblock %}
